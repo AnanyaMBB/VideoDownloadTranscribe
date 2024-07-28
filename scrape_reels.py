@@ -15,6 +15,12 @@ import redis
 
 load_dotenv()
 
+def extract_number(filename): 
+    return int(filename.split('.')[0])
+
+count = int(sorted(os.listdir(os.getcwd() + './dataset/unparsed_json'), key=extract_number)[-1].split('.')[0])
+print("Count: ", count)
+
 username = os.getenv("INSTAGRAM_USERNAME")
 password = os.getenv("INSTAGRAM_PASSWORD")
 
@@ -48,7 +54,9 @@ try:
     
     processed_hashes = set()
 
-    count = 0
+    # count = 0
+    # count = int(sorted(os.listdir(os.getcwd() + './dataset/unparsed_json'), key=extract_number)[-1].split('.')[0])
+    # print("Count: ", count)
     for _ in range(100000):
         time.sleep(2)
         for request in driver.requests:
@@ -74,7 +82,7 @@ try:
                             with open(file_path, 'w', encoding='utf-8') as file:
                                 file.write(json.dumps(body, indent=4, ensure_ascii=False))
                             
-                            redisClient.push('unparsed_json_queue', file_path)
+                            redisClient.rpush('unparsed_json_queue', file_path)
                             # Add the hash of this body to the set of processed hashes
                             processed_hashes.add(body_hash)
                             count += 1
