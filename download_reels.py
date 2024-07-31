@@ -12,6 +12,7 @@ load_dotenv()
 
 class DownloadReels:     
     def getFilePaths(self, batch_size=10):
+        print(os.getenv("REDIS_HOST"))
         redisClient = redis.Redis(host=os.getenv("REDIS_HOST"), port=os.getenv("REDIS_PORT"), db=0)
         filePaths = []
         for _ in range(batch_size):

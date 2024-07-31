@@ -18,7 +18,11 @@ load_dotenv()
 def extract_number(filename): 
     return int(filename.split('.')[0])
 
-count = int(sorted(os.listdir(os.getcwd() + './dataset/unparsed_json'), key=extract_number)[-1].split('.')[0])
+try: 
+    count = int(sorted(os.listdir(os.getcwd() + './dataset/unparsed_json'), key=extract_number)[-1].split('.')[0]) 
+except: 
+    count = 0
+    
 print("Count: ", count)
 
 username = os.getenv("INSTAGRAM_USERNAME")

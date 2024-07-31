@@ -96,6 +96,28 @@ class TranscriptionEngine:
                 vectorizer_config=wvc.config.Configure.Vectorizer.text2vec_openai(
                     model="text-embedding-3-large", dimensions=1024
                 ),
+                # vectorizer_config = [
+                #     wvc.config.Configure.NamedVectors.text2vec_openai(
+                #         name="caption_vector",
+                #         source_properties=["caption"],
+                #         model="text-embedding-3-large",
+                #         dimensions=1024,
+                #             vector_index_config=wvc.config.Configure.VectorIndex.hnsw(
+                #             distance_metric=wvc.config.VectorDistances.COSINE,
+                #             quantizer=wvc.config.Configure.VectorIndex.Quantizer.bq(),
+                #         ),
+                #     ),
+                #     wvc.config.Configure.NamedVectors.text2vec_openai(
+                #         name="transcript_vector",
+                #         source_properties=["transcript"],
+                #         model="text-embedding-3-large",
+                #         dimensions=1024,
+                #         vector_index_config=wvc.config.Configure.VectorIndex.hnsw(
+                #             distance_metric=wvc.config.VectorDistances.COSINE,
+                #             quantizer=wvc.config.Configure.VectorIndex.Quantizer.bq(),
+                #         ),
+                #     ),
+                # ],
                 generative_config=wvc.config.Configure.Generative.openai(),
                 properties=[
                     wvc.config.Property(
